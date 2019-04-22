@@ -1,18 +1,11 @@
-var express = require("express");
-var app = express();
+const express = require("express");
+const app = express();
+const routes = require("./routes");
+const bodyParser = require("body-parser");
 
-app.all("/secret", function(req, res, next) {
-  console.log("Accessing the secret section ...");
-  next(); // pass control to the next handler
-});
+app.use(bodyParser.json({ limit: "50mb" }));
 
-app.get("/", function(req, res) {
-  res.send("Hello World!");
-});
-
-app.get("/about", function(req, res) {
-  res.send("About this wiki");
-});
+app.use(routes);
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
