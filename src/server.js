@@ -1,26 +1,40 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const routes = require("./routes");
-const bodyParser = require("body-parser");
+const routes = require('./routes');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const graphqlHTTP = require('express-graphql');
+const schema = require('./graphql/bookSchemas');
+const cors = require('cors');
 
-app.use(bodyParser.json({ limit: "50mb" }));
+async function launchApplication() {
+    app.use(bodyParser.json({ limit: '50mb' }));
 
-app.use(routes);
+    app.use(routes);
 
-app.listen(3000, function() {
-  console.log("Example app listening on port 3000!");
-});
+    app.use('*', cors());
+    app.use(
+        '/graphql',
+        cors(),
+        graphqlHTTP({
+            schema: schema,
+            rootValue: global,
+            graphiql: true
+        })
+    );
 
-let MongoClient = require("mongodb").MongoClient;
-MongoClient.connect("mongodb://localhost:27017/animals", function(err, client) {
-  if (err) throw err;
-
-  let db = client.db("animals");
-  db.collection("mammals")
-    .find()
-    .toArray(function(err, result) {
-      if (err) throw err;
-      console.log(result);
-      client.close();
+    app.listen(3000, function() {
+        console.log('Example app listening on port 3000!');
     });
-});
+    try {
+        await mongoose.connect('mongodb://localhost:27017/animals', {
+            useNewUrlParser: true
+        });
+
+        console.log('connection successful');
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+launchApplication();
