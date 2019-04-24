@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 var BookSchema = new mongoose.Schema({
     id: String,
@@ -11,4 +11,4 @@ var BookSchema = new mongoose.Schema({
     updated_date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Book', BookSchema);
+export default mongoose.model('Book', BookSchema);

@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
+import routes from './routes/index.js';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import graphqlHTTP from 'express-graphql';
+import schema from './graphql/bookSchemas.js';
+import cors from 'cors';
+
 const app = express();
-const routes = require('./routes');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const graphqlHTTP = require('express-graphql');
-const schema = require('./graphql/bookSchemas');
-const cors = require('cors');
 
 async function launchApplication() {
     app.use(bodyParser.json({ limit: '50mb' }));
@@ -23,7 +24,7 @@ async function launchApplication() {
         })
     );
 
-    app.listen(3000, function() {
+    app.listen(3221, function() {
         console.log('Example app listening on port 3000!');
     });
     try {

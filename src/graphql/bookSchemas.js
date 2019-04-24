@@ -1,13 +1,13 @@
-var GraphQLSchema = require('graphql').GraphQLSchema;
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
-var GraphQLList = require('graphql').GraphQLList;
-var GraphQLObjectType = require('graphql').GraphQLObjectType;
-var GraphQLNonNull = require('graphql').GraphQLNonNull;
-var GraphQLID = require('graphql').GraphQLID;
-var GraphQLString = require('graphql').GraphQLString;
-var GraphQLInt = require('graphql').GraphQLInt;
-var GraphQLDate = require('graphql-date');
-var BookModel = require('../models/Book');
+import graphql from 'graphql';
+import GraphQLDate from 'graphql-date';
+import BookModel from '../models/Book.js';
+
+const GraphQLSchema = graphql.GraphQLSchema;
+const GraphQLObjectType = graphql.GraphQLObjectType;
+const GraphQLList = graphql.GraphQLList;
+const GraphQLNonNull = graphql.GraphQLNonNull;
+const GraphQLString = graphql.GraphQLString;
+const GraphQLInt = graphql.GraphQLInt;
 
 var bookType = new GraphQLObjectType({
     name: 'book',
@@ -173,4 +173,4 @@ var mutation = new GraphQLObjectType({
     }
 });
 
-module.exports = new GraphQLSchema({ query: queryType, mutation: mutation });
+export default new GraphQLSchema({ query: queryType, mutation: mutation });
