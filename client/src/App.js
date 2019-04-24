@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import './App.css';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
@@ -28,7 +28,9 @@ class App extends Component {
                                 <div className="panel-heading">
                                     <h3 className="panel-title">LIST OF BOOKS</h3>
                                     <h4>
-                                        <Link to="/create">Add Book</Link>
+                                        <BrowserRouter>
+                                            <Link to="/create">Add Book</Link>
+                                        </BrowserRouter>
                                     </h4>
                                 </div>
                                 <div className="panel-body">
@@ -43,7 +45,9 @@ class App extends Component {
                                             {data.books.map((book, index) => (
                                                 <tr key={index}>
                                                     <td>
-                                                        <Link to={`/show/${book._id}`}>{book.title}</Link>
+                                                        <BrowserRouter>
+                                                            <Link to={`/show/${book._id}`}>{book.title}</Link>
+                                                        </BrowserRouter>
                                                     </td>
                                                     <td>{book.title}</td>
                                                 </tr>

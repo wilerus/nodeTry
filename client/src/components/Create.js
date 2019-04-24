@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 
 const ADD_BOOK = gql`
     mutation AddBook($isbn: String!, $title: String!, $author: String!, $description: String!, $publisher: String!, $published_year: Int!) {
@@ -24,9 +24,11 @@ class Create extends Component {
                             </div>
                             <div className="panel-body">
                                 <h4>
-                                    <Link to="/" className="btn btn-primary">
-                                        Book List
-                                    </Link>
+                                    <BrowserRouter>
+                                        <Link to="/" className="btn btn-primary">
+                                            Book List
+                                        </Link>
+                                    </BrowserRouter>
                                 </h4>
                                 <form
                                     onSubmit={e => {
